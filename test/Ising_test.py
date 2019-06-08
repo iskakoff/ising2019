@@ -18,6 +18,18 @@ class MyTestCase(unittest.TestCase):
             for j in range(lattice.N):
                 self.assertEqual(lattice.spin(i,j),-(-1)**(i+j))
 
+    def test_spin_flip(self):
+        lattice=IsingLattice(30,.5)
+        for i in range(lattice.N):
+            for j in range(lattice.N):
+                s_ij=lattice.spin(i,j)
+                lattice.spin_flip(i,j)
+                self.assertEqual(lattice.spin(i,j), -s_ij)
+
+    def test_energy(self):
+        lattice=IsingLattice(30,.5, True)
+        self.assertEqual(lattice.energy(),-lattice.J_ij*2*lattice.N**2)
+
 
 if __name__ == '__main__':
     unittest.main()
